@@ -1,0 +1,9 @@
+{
+  "name": "arxiv-daily",
+  "version": "1.0.0",
+  "description": "Arxiv 论文速递 - IDA Lab",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

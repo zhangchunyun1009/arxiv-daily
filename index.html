@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arxiv 论文速递 - IDA Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+            background: #f0f5f1;
+            color: #2d3436;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========== Header ========== */
+        header {
+            background: linear-gradient(135deg, #e8f5e9 0%, #e0f2f1 30%, #e1f5fe 60%, #f3e5f5 100%);
+            padding: 28px 30px 24px;
+            text-align: center;
+            flex-shrink: 0;
+            position: relative;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2381c784' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2e7d32;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        header h1 span {
+            background: linear-gradient(135deg, #2e7d32, #00897b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .slogan {
+            position: relative;
+            z-index: 1;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #5c8a5e;
+            font-weight: 500;
+            font-style: italic;
+        }
+        .header-date {
+            position: relative;
+            z-index: 1;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #90a4ae;
+        }
+
+        /* ========== Main Layout ========== */
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* ========== Sidebar ========== */
+        .sidebar {
+            width: 200px;
+            min-width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e8ece9;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: margin-left 0.3s ease;
+        }
+        .sidebar.collapsed { margin-left: -200px; }
+        .sidebar-header {
+            padding: 16px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #66bb6a;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #f0f4f1;
+        }
+        .sidebar-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 0;
+        }
+        .sidebar-list::-webkit-scrollbar { width: 3px; }
+        .sidebar-list::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 2px; }
+        .date-item {
+            padding: 9px 18px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.15s;
+            color: #607d8b;
+            border-left: 3px solid transparent;
+        }
+        .date-item:hover { background: #f1f8f2; color: #2e7d32; }
+        .date-item.active {
+            background: linear-gradient(90deg, #e8f5e9, #ffffff);
+            color: #2e7d32;
+            border-left-color: #66bb6a;
+            font-weight: 600;
+        }
+        .date-item.today::after {
+            content: 'Today';
+            font-size: 10px;
+            background: linear-gradient(135deg, #66bb6a, #26a69a);
+            color: white;
+            padding: 1px 7px;
+            border-radius: 8px;
+            margin-left: auto;
+            font-weight: 600;
+        }
+        .date-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: #c8e6c9;
+            flex-shrink: 0;
+        }
+        .date-item.active .date-dot { background: #66bb6a; }
+        .sidebar-footer {
+            padding: 12px 14px;
+            border-top: 1px solid #f0f4f1;
+        }
+        .sidebar-footer button {
+            width: 100%;
+            padding: 7px;
+            background: #fff5f5;
+            color: #e57373;
+            border: 1px solid #ffcdd2;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .sidebar-footer button:hover { background: #ffebee; }
+
+        /* ========== Content Area ========== */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #f6faf7;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            padding: 12px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ece9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .sidebar-toggle {
+            width: 34px; height: 34px;
+            border: 1px solid #e0e7e1;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #78909c;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+        .sidebar-toggle:hover { background: #f1f8f2; color: #2e7d32; border-color: #a5d6a7; }
+        .toolbar select {
+            padding: 7px 12px;
+            border: 1px solid #e0e7e1;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #546e7a;
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+        .toolbar select:focus { border-color: #81c784; }
+        .toolbar-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #66bb6a, #26a69a);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102,187,106,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,187,106,0.4); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .fetch-progress {
+            font-size: 12px;
+            color: #66bb6a;
+            font-weight: 500;
+        }
+        .auto-status {
+            margin-left: auto;
+            font-size: 12px;
+            color: #b0bec5;
+        }
+        .auto-status .dot {
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #66bb6a;
+            margin-right: 4px;
+            vertical-align: middle;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Tabs */
+        .tabs-wrapper {
+            padding: 12px 24px;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ece9;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        .tab {
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #e0e7e1;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #78909c;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab:hover { border-color: #81c784; color: #2e7d32; background: #f1f8f2; }
+        .tab.active {
+            background: linear-gradient(135deg, #66bb6a, #26a69a);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 2px 8px rgba(102,187,106,0.25);
+        }
+
+        /* Papers list */
+        .papers-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px 40px;
+        }
+        .papers-container::-webkit-scrollbar { width: 5px; }
+        .papers-container::-webkit-scrollbar-track { background: transparent; }
+        .papers-container::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 3px; }
+        .papers-container::-webkit-scrollbar-thumb:hover { background: #a5d6a7; }
+
+        .paper-count {
+            font-size: 13px;
+            color: #90a4ae;
+            margin-bottom: 16px;
+            padding-left: 2px;
+        }
+
+        .status-box {
+            text-align: center;
+            padding: 80px 20px;
+            color: #b0bec5;
+        }
+        .status-box.error { color: #e57373; }
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+        .status-text { font-size: 15px; font-weight: 500; }
+
+        /* Paper card */
+        .paper {
+            background: white;
+            border-radius: 14px;
+            padding: 22px 26px;
+            margin-bottom: 14px;
+            border: 1px solid #e8ece9;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .paper::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 16px; bottom: 16px;
+            width: 3px;
+            border-radius: 0 3px 3px 0;
+            background: linear-gradient(180deg, #81c784, #80cbc4);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .paper:hover {
+            border-color: #c8e6c9;
+            box-shadow: 0 4px 20px rgba(102,187,106,0.1);
+            transform: translateY(-1px);
+        }
+        .paper:hover::before { opacity: 1; }
+        .paper-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #263238;
+            margin-bottom: 10px;
+            line-height: 1.55;
+        }
+        .paper-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .paper-title a:hover { color: #2e7d32; }
+        .paper-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .meta-date {
+            font-size: 12px;
+            color: #78909c;
+            background: #f5f7f6;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+        .category-tag {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .cat-0 { background: #e8f5e9; color: #2e7d32; }
+        .cat-1 { background: #e0f7fa; color: #00838f; }
+        .cat-2 { background: #fff3e0; color: #e65100; }
+        .cat-3 { background: #fce4ec; color: #c2185b; }
+        .cat-4 { background: #ede7f6; color: #5e35b1; }
+        .paper-authors {
+            font-size: 13px;
+            color: #78909c;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .paper-authors strong { color: #546e7a; font-weight: 600; }
+        .paper-abstract {
+            font-size: 13.5px;
+            color: #546e7a;
+            line-height: 1.8;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #f9fdf9, #f5fafa);
+            border-radius: 10px;
+            border-left: 3px solid #c8e6c9;
+            position: relative;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .paper-abstract.collapsed { max-height: 72px; }
+        .paper-abstract.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, #f9fdf9);
+        }
+        .toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            color: #66bb6a;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.15s;
+        }
+        .toggle-btn:hover { color: #2e7d32; }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px; height: 20px;
+            border: 2.5px solid #e8f5e9;
+            border-top-color: #66bb6a;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Leaf decoration */
+        .leaf { display: inline-block; margin: 0 3px; }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; box-shadow: 4px 0 20px rgba(0,0,0,0.08); }
+            .sidebar.collapsed { margin-left: -200px; }
+            .tab { font-size: 12px; padding: 5px 12px; }
+            .paper { padding: 18px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>Arxiv 论文速递</span></h1>
+        <div class="slogan"><span class="leaf">&#127807;</span> IDA的小伙伴们，用阅读最新论文开启新的一天！ <span class="leaf">&#127807;</span></div>
+        <div class="header-date" id="header-date"></div>
+    </header>
+
+    <div class="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">&#128197; 历史记录</div>
+            <div class="sidebar-list" id="sidebar-list"></div>
+            <div class="sidebar-footer">
+                <button onclick="clearHistory()">&#128465; 清除所有历史</button>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <div class="content-area">
+            <div class="toolbar">
+                <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="切换侧边栏">&#9776;</button>
+                <select id="max-results">
+                    <option value="10">每方向 10 篇</option>
+                    <option value="20" selected>每方向 20 篇</option>
+                    <option value="50">每方向 50 篇</option>
+                </select>
+                <button class="toolbar-btn btn-primary" id="fetch-btn" onclick="fetchAll()">&#128260; 刷新今日数据</button>
+                <span class="fetch-progress" id="fetch-progress"></span>
+                <div class="auto-status" id="auto-status"><span class="dot"></span>自动刷新：每日 8:30</div>
+            </div>
+            <div class="tabs-wrapper" id="tabs"></div>
+            <div class="papers-container" id="papers-container">
+                <div class="status-box">
+                    <div class="status-icon">&#127793;</div>
+                    <div class="status-text">正在加载论文数据...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== Config ====================
+        const TOPICS = [
+            {
+                name: '多模态大语言模型蒸馏',
+                queries: [
+                    'all:multimodal AND all:knowledge+distillation AND all:large+language+model',
+                    'all:multimodal AND all:model+distillation'
+                ]
+            },
+            {
+                name: '扩散模型',
+                queries: [
+                    'all:diffusion+model AND (cat:cs.CV OR cat:cs.LG OR cat:cs.AI)'
+                ]
+            },
+            {
+                name: '测试时领域自适应',
+                queries: [
+                    'all:test-time+adaptation',
+                    'all:test-time+domain+adaptation'
+                ]
+            },
+            {
+                name: '作文评分',
+                queries: [
+                    'all:automated+essay+scoring',
+                    'all:essay+grading AND all:neural'
+                ]
+            },
+            {
+                name: '知识追踪',
+                queries: [
+                    'all:knowledge+tracing',
+                    'all:knowledge+tracing AND (cat:cs.AI OR cat:cs.CY OR cat:cs.LG)'
+                ]
+            },
+            {
+                name: '提示学习',
+                queries: [
+                    'all:prompt+learning AND (cat:cs.CL OR cat:cs.CV OR cat:cs.LG)',
+                    'all:prompt+tuning AND all:vision'
+                ]
+            },
+            {
+                name: '工业异常检测',
+                queries: [
+                    'all:industrial+anomaly+detection',
+                    'all:anomaly+detection AND all:manufacturing'
+                ]
+            },
+            {
+                name: '对抗攻击',
+                queries: [
+                    'all:adversarial+attack AND (cat:cs.CV OR cat:cs.LG OR cat:cs.CR)',
+                    'all:adversarial+robustness AND all:attack'
+                ]
+            }
+        ];
+
+        const STORAGE_PREFIX = 'arxiv_';
+        const AUTO_REFRESH_HOUR = 8;
+        const AUTO_REFRESH_MIN = 30;
+
+        // ==================== State ====================
+        let activeTab = 0;
+        let selectedDate = getToday();
+        let sidebarOpen = true;
+
+        // ==================== Utility ====================
+        function getToday() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function storageKey(date, topicIndex) {
+            return `${STORAGE_PREFIX}${date}_${topicIndex}`;
+        }
+
+        function getStoredDates() {
+            const dates = new Set();
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith(STORAGE_PREFIX)) {
+                    const parts = key.replace(STORAGE_PREFIX, '').split('_');
+                    if (parts.length >= 2) dates.add(parts[0]);
+                }
+            }
+            return Array.from(dates).sort().reverse();
+        }
+
+        function getStoredPapers(date, topicIndex) {
+            const data = localStorage.getItem(storageKey(date, topicIndex));
+            return data ? JSON.parse(data) : null;
+        }
+
+        function storePapers(date, topicIndex, papers) {
+            localStorage.setItem(storageKey(date, topicIndex), JSON.stringify(papers));
+        }
+
+        function hasTodayData() {
+            const today = getToday();
+            return getStoredPapers(today, 0) !== null;
+        }
+
+        // ==================== Sidebar ====================
+        function toggleSidebar() {
+            sidebarOpen = !sidebarOpen;
+            document.getElementById('sidebar').classList.toggle('collapsed', !sidebarOpen);
+        }
+
+        function renderSidebar() {
+            const dates = getStoredDates();
+            const today = getToday();
+            const list = document.getElementById('sidebar-list');
+            if (dates.length === 0) {
+                list.innerHTML = '<div style="padding:24px 18px;font-size:13px;color:#b0bec5;text-align:center;">暂无历史数据</div>';
+                return;
+            }
+            list.innerHTML = dates.map(date => {
+                const isToday = date === today;
+                const isActive = date === selectedDate;
+                return `<div class="date-item${isActive ? ' active' : ''}${isToday ? ' today' : ''}" onclick="selectDate('${date}')">
+                    <span class="date-dot"></span>
+                    ${date}
+                </div>`;
+            }).join('');
+        }
+
+        function selectDate(date) {
+            selectedDate = date;
+            renderSidebar();
+            renderPapers();
+        }
+
+        function clearHistory() {
+            if (!confirm('确定要清除所有历史数据吗？此操作不可恢复。')) return;
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith(STORAGE_PREFIX)) keysToRemove.push(key);
+            }
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+            selectedDate = getToday();
+            renderSidebar();
+            renderPapers();
+        }
+
+        // ==================== Tabs ====================
+        function renderTabs() {
+            const tabsEl = document.getElementById('tabs');
+            tabsEl.innerHTML = TOPICS.map((t, i) =>
+                `<div class="tab${i === activeTab ? ' active' : ''}" onclick="switchTab(${i})">${t.name}</div>`
+            ).join('');
+        }
+
+        function switchTab(index) {
+            activeTab = index;
+            renderTabs();
+            renderPapers();
+        }
+
+        // ==================== Fetch (via local proxy) ====================
+        async function fetchArxiv(query, maxResults) {
+            const params = `search_query=${encodeURIComponent(query)}&start=0&max_results=${maxResults}&sortBy=submittedDate&sortOrder=descending`;
+            const resp = await fetch(`/api/arxiv?${params}`);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const text = await resp.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, 'text/xml');
+            const entries = xml.querySelectorAll('entry');
+            const papers = [];
+            entries.forEach(entry => {
+                const id = entry.querySelector('id')?.textContent || '';
+                const title = (entry.querySelector('title')?.textContent || '').replace(/\s+/g, ' ').trim();
+                const summary = (entry.querySelector('summary')?.textContent || '').replace(/\s+/g, ' ').trim();
+                const published = entry.querySelector('published')?.textContent || '';
+                const authors = [];
+                entry.querySelectorAll('author name').forEach(n => authors.push(n.textContent));
+                const categories = [];
+                entry.querySelectorAll('category').forEach(c => categories.push(c.getAttribute('term')));
+                papers.push({ id, title, summary, published, authors, categories });
+            });
+            return papers;
+        }
+
+        async function fetchTopic(topicIndex, maxResults) {
+            const topic = TOPICS[topicIndex];
+            const seen = new Set();
+            let allPapers = [];
+            for (const query of topic.queries) {
+                try {
+                    const papers = await fetchArxiv(query, maxResults);
+                    for (const p of papers) {
+                        if (!seen.has(p.id)) {
+                            seen.add(p.id);
+                            allPapers.push(p);
+                        }
+                    }
+                } catch (e) {
+                    console.warn(`Query failed: ${query}`, e);
+                }
+                await sleep(1000);
+            }
+            allPapers.sort((a, b) => new Date(b.published) - new Date(a.published));
+            return allPapers;
+        }
+
+        async function fetchAll() {
+            const btn = document.getElementById('fetch-btn');
+            const progress = document.getElementById('fetch-progress');
+            btn.disabled = true;
+            btn.innerHTML = '&#9203; 获取中...';
+
+            const today = getToday();
+            selectedDate = today;
+            const maxResults = parseInt(document.getElementById('max-results').value);
+
+            showStatus('loading', '正在从 Arxiv 获取论文数据，请稍候...');
+
+            try {
+                for (let i = 0; i < TOPICS.length; i++) {
+                    progress.textContent = `(${i + 1}/${TOPICS.length}) ${TOPICS[i].name}...`;
+                    const papers = await fetchTopic(i, maxResults);
+                    storePapers(today, i, papers);
+                    if (i === activeTab) renderPapers();
+                    renderSidebar();
+                    if (i < TOPICS.length - 1) await sleep(3000);
+                }
+                renderPapers();
+            } catch (e) {
+                showStatus('error', `获取失败：${e.message}，请检查网络后重试`);
+            }
+
+            progress.textContent = '';
+            btn.disabled = false;
+            btn.innerHTML = '&#128260; 刷新今日数据';
+        }
+
+        // ==================== Render ====================
+        function showStatus(type, text) {
+            const container = document.getElementById('papers-container');
+            const icons = { loading: '', error: '&#9888;&#65039;', empty: '&#127793;' };
+            const spinnerHtml = type === 'loading' ? '<span class="spinner"></span>' : '';
+            container.innerHTML = `<div class="status-box${type === 'error' ? ' error' : ''}">
+                <div class="status-icon">${icons[type] || '&#127793;'}</div>
+                <div class="status-text">${spinnerHtml}${text}</div>
+            </div>`;
+        }
+
+        function renderPapers() {
+            const papers = getStoredPapers(selectedDate, activeTab);
+            const container = document.getElementById('papers-container');
+
+            if (papers === null) {
+                showStatus('empty', `${selectedDate} 暂无「${TOPICS[activeTab].name}」的数据`);
+                return;
+            }
+            if (papers.length === 0) {
+                showStatus('empty', `${selectedDate}「${TOPICS[activeTab].name}」方向未检索到论文`);
+                return;
+            }
+
+            let html = `<div class="paper-count">&#127808; ${selectedDate} &middot; ${TOPICS[activeTab].name} &middot; 共 ${papers.length} 篇</div>`;
+            papers.forEach((p, idx) => {
+                const date = new Date(p.published);
+                const dateStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+                const cats = p.categories.slice(0, 4).map((c, ci) =>
+                    `<span class="category-tag cat-${ci % 5}">${c}</span>`
+                ).join('');
+                html += `
+                <div class="paper">
+                    <div class="paper-title"><a href="${p.id}" target="_blank" rel="noopener">${p.title}</a></div>
+                    <div class="paper-meta">
+                        <span class="meta-date">${dateStr}</span>
+                        ${cats}
+                    </div>
+                    <div class="paper-authors"><strong>Authors: </strong>${p.authors.join(', ')}</div>
+                    <div class="paper-abstract collapsed" id="abs-${idx}">${p.summary}</div>
+                    <span class="toggle-btn" onclick="toggleAbstract(${idx})">&#9660; 展开摘要</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function toggleAbstract(idx) {
+            const el = document.getElementById('abs-' + idx);
+            const link = el.nextElementSibling;
+            if (el.classList.contains('collapsed')) {
+                el.classList.remove('collapsed');
+                link.innerHTML = '&#9650; 收起摘要';
+            } else {
+                el.classList.add('collapsed');
+                link.innerHTML = '&#9660; 展开摘要';
+            }
+        }
+
+        // ==================== Auto Refresh ====================
+        function scheduleAutoRefresh() {
+            function check() {
+                const now = new Date();
+                if (now.getHours() === AUTO_REFRESH_HOUR && now.getMinutes() === AUTO_REFRESH_MIN) {
+                    if (!hasTodayData()) {
+                        console.log('[AutoRefresh] Triggering daily fetch at 8:30');
+                        fetchAll();
+                    }
+                }
+            }
+            setInterval(check, 30000);
+        }
+
+        // ==================== Init ====================
+        function init() {
+            const now = new Date();
+            document.getElementById('header-date').textContent =
+                `${now.getFullYear()} 年 ${now.getMonth()+1} 月 ${now.getDate()} 日`;
+
+            renderTabs();
+            renderSidebar();
+
+            if (hasTodayData()) {
+                renderPapers();
+            } else {
+                fetchAll();
+            }
+
+            scheduleAutoRefresh();
+        }
+
+        init();
+    </script>
+</body>
+</html>
