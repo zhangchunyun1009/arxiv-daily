@@ -74,484 +74,337 @@
         }
 
         /* ========== Main Layout ========== */
-        .main-wrapper {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
+        .main-wrapper { display: flex; flex: 1; overflow: hidden; }
 
         /* ========== Sidebar ========== */
         .sidebar {
-            width: 200px;
-            min-width: 200px;
+            width: 200px; min-width: 200px;
             background: #ffffff;
             border-right: 1px solid #e8ece9;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             flex-shrink: 0;
             transition: margin-left 0.3s ease;
         }
         .sidebar.collapsed { margin-left: -200px; }
         .sidebar-header {
             padding: 16px 18px;
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 11px; font-weight: 700;
             color: #66bb6a;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             border-bottom: 1px solid #f0f4f1;
         }
-        .sidebar-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 6px 0;
-        }
+        .sidebar-list { flex: 1; overflow-y: auto; padding: 6px 0; }
         .sidebar-list::-webkit-scrollbar { width: 3px; }
         .sidebar-list::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 2px; }
         .date-item {
-            padding: 9px 18px;
-            cursor: pointer;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.15s;
-            color: #607d8b;
+            padding: 9px 18px; cursor: pointer; font-size: 13px;
+            display: flex; align-items: center; gap: 10px;
+            transition: all 0.15s; color: #607d8b;
             border-left: 3px solid transparent;
         }
         .date-item:hover { background: #f1f8f2; color: #2e7d32; }
         .date-item.active {
             background: linear-gradient(90deg, #e8f5e9, #ffffff);
-            color: #2e7d32;
-            border-left-color: #66bb6a;
-            font-weight: 600;
+            color: #2e7d32; border-left-color: #66bb6a; font-weight: 600;
         }
         .date-item.today::after {
-            content: 'Today';
-            font-size: 10px;
+            content: 'Today'; font-size: 10px;
             background: linear-gradient(135deg, #66bb6a, #26a69a);
-            color: white;
-            padding: 1px 7px;
-            border-radius: 8px;
-            margin-left: auto;
-            font-weight: 600;
+            color: white; padding: 1px 7px; border-radius: 8px;
+            margin-left: auto; font-weight: 600;
         }
-        .date-dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: #c8e6c9;
-            flex-shrink: 0;
-        }
+        .date-dot { width: 5px; height: 5px; border-radius: 50%; background: #c8e6c9; flex-shrink: 0; }
         .date-item.active .date-dot { background: #66bb6a; }
-        .sidebar-footer {
-            padding: 12px 14px;
-            border-top: 1px solid #f0f4f1;
-        }
+        .sidebar-footer { padding: 12px 14px; border-top: 1px solid #f0f4f1; }
         .sidebar-footer button {
-            width: 100%;
-            padding: 7px;
-            background: #fff5f5;
-            color: #e57373;
-            border: 1px solid #ffcdd2;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
+            width: 100%; padding: 7px;
+            background: #fff5f5; color: #e57373;
+            border: 1px solid #ffcdd2; border-radius: 8px;
+            cursor: pointer; font-size: 12px; font-weight: 500;
             transition: all 0.2s;
         }
         .sidebar-footer button:hover { background: #ffebee; }
 
         /* ========== Content Area ========== */
-        .content-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: #f6faf7;
-        }
+        .content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #f6faf7; }
 
         /* Toolbar */
         .toolbar {
-            padding: 12px 24px;
-            background: #ffffff;
+            padding: 12px 24px; background: #ffffff;
             border-bottom: 1px solid #e8ece9;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
-            flex-wrap: wrap;
+            display: flex; align-items: center; gap: 10px;
+            flex-shrink: 0; flex-wrap: wrap;
         }
         .sidebar-toggle {
             width: 34px; height: 34px;
-            border: 1px solid #e0e7e1;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: #78909c;
-            transition: all 0.15s;
-            flex-shrink: 0;
+            border: 1px solid #e0e7e1; border-radius: 10px;
+            background: white; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: #78909c;
+            transition: all 0.15s; flex-shrink: 0;
         }
         .sidebar-toggle:hover { background: #f1f8f2; color: #2e7d32; border-color: #a5d6a7; }
         .toolbar select {
-            padding: 7px 12px;
-            border: 1px solid #e0e7e1;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #546e7a;
-            background: white;
-            cursor: pointer;
-            outline: none;
+            padding: 7px 12px; border: 1px solid #e0e7e1; border-radius: 10px;
+            font-size: 13px; color: #546e7a; background: white; cursor: pointer; outline: none;
         }
         .toolbar select:focus { border-color: #81c784; }
         .toolbar-btn {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            padding: 8px 20px; border: none; border-radius: 10px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
         }
         .btn-primary {
             background: linear-gradient(135deg, #66bb6a, #26a69a);
-            color: white;
-            box-shadow: 0 2px 8px rgba(102,187,106,0.3);
+            color: white; box-shadow: 0 2px 8px rgba(102,187,106,0.3);
         }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,187,106,0.4); }
         .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-        .fetch-progress {
-            font-size: 12px;
-            color: #66bb6a;
-            font-weight: 500;
-        }
-        .auto-status {
+        .fetch-progress { font-size: 12px; color: #66bb6a; font-weight: 500; }
+        .search-box {
             margin-left: auto;
-            font-size: 12px;
-            color: #b0bec5;
+            position: relative;
         }
+        .search-box input {
+            padding: 7px 12px 7px 32px;
+            border: 1px solid #e0e7e1; border-radius: 10px;
+            font-size: 13px; color: #546e7a; background: white;
+            outline: none; width: 180px; transition: all 0.2s;
+        }
+        .search-box input:focus { border-color: #81c784; width: 220px; }
+        .search-box::before {
+            content: '&#128269;';
+            position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+            font-size: 13px; color: #b0bec5; pointer-events: none;
+        }
+        .auto-status { font-size: 12px; color: #b0bec5; }
         .auto-status .dot {
-            display: inline-block;
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: #66bb6a;
-            margin-right: 4px;
-            vertical-align: middle;
+            display: inline-block; width: 6px; height: 6px;
+            border-radius: 50%; background: #66bb6a;
+            margin-right: 4px; vertical-align: middle;
             animation: pulse 2s ease-in-out infinite;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         /* Tabs */
         .tabs-wrapper {
-            padding: 12px 24px;
-            background: #ffffff;
+            padding: 12px 24px; background: #ffffff;
             border-bottom: 1px solid #e8ece9;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            flex-shrink: 0;
+            display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0;
+            align-items: center;
         }
         .tab {
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1.5px solid #e0e7e1;
-            background: white;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #78909c;
-            transition: all 0.2s;
-            white-space: nowrap;
+            padding: 6px 16px; border-radius: 20px;
+            border: 1.5px solid #e0e7e1; background: white;
+            cursor: pointer; font-size: 13px; font-weight: 500;
+            color: #78909c; transition: all 0.2s; white-space: nowrap;
+            position: relative;
         }
         .tab:hover { border-color: #81c784; color: #2e7d32; background: #f1f8f2; }
         .tab.active {
             background: linear-gradient(135deg, #66bb6a, #26a69a);
-            color: white;
-            border-color: transparent;
+            color: white; border-color: transparent;
             box-shadow: 0 2px 8px rgba(102,187,106,0.25);
         }
-
-        /* Papers list */
-        .papers-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 24px 40px;
-        }
-        .papers-container::-webkit-scrollbar { width: 5px; }
-        .papers-container::-webkit-scrollbar-track { background: transparent; }
-        .papers-container::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 3px; }
-        .papers-container::-webkit-scrollbar-thumb:hover { background: #a5d6a7; }
-
-        .paper-count {
-            font-size: 13px;
-            color: #90a4ae;
-            margin-bottom: 16px;
-            padding-left: 2px;
-        }
-
-        .status-box {
-            text-align: center;
-            padding: 80px 20px;
-            color: #b0bec5;
-        }
-        .status-box.error { color: #e57373; }
-        .status-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.6;
-        }
-        .status-text { font-size: 15px; font-weight: 500; }
-
-        /* Paper card */
-        .paper {
-            background: white;
-            border-radius: 14px;
-            padding: 22px 26px;
-            margin-bottom: 14px;
-            border: 1px solid #e8ece9;
-            transition: all 0.25s ease;
-            position: relative;
-        }
-        .paper::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 16px; bottom: 16px;
-            width: 3px;
-            border-radius: 0 3px 3px 0;
-            background: linear-gradient(180deg, #81c784, #80cbc4);
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-        .paper:hover {
-            border-color: #c8e6c9;
-            box-shadow: 0 4px 20px rgba(102,187,106,0.1);
-            transform: translateY(-1px);
-        }
-        .paper:hover::before { opacity: 1; }
-        .paper-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #263238;
-            margin-bottom: 10px;
-            line-height: 1.55;
-        }
-        .paper-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.15s;
-        }
-        .paper-title a:hover { color: #2e7d32; }
-        .paper-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        .meta-date {
-            font-size: 12px;
-            color: #78909c;
-            background: #f5f7f6;
-            padding: 3px 10px;
-            border-radius: 10px;
-        }
-        .category-tag {
-            font-size: 11px;
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-weight: 500;
-        }
-        .cat-0 { background: #e8f5e9; color: #2e7d32; }
-        .cat-1 { background: #e0f7fa; color: #00838f; }
-        .cat-2 { background: #fff3e0; color: #e65100; }
-        .cat-3 { background: #fce4ec; color: #c2185b; }
-        .cat-4 { background: #ede7f6; color: #5e35b1; }
-        .paper-authors {
-            font-size: 13px;
-            color: #78909c;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-        .paper-authors strong { color: #546e7a; font-weight: 600; }
-        .paper-abstract {
-            font-size: 13.5px;
-            color: #546e7a;
-            line-height: 1.8;
-            padding: 14px 16px;
-            background: linear-gradient(135deg, #f9fdf9, #f5fafa);
-            border-radius: 10px;
-            border-left: 3px solid #c8e6c9;
-            position: relative;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        .paper-abstract.collapsed { max-height: 72px; }
-        .paper-abstract.collapsed::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 40px;
-            background: linear-gradient(transparent, #f9fdf9);
-        }
-        .toggle-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 8px;
-            color: #66bb6a;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: color 0.15s;
-        }
-        .toggle-btn:hover { color: #2e7d32; }
-
-        /* Loading spinner */
-        .spinner {
+        .tab-badge {
             display: inline-block;
-            width: 20px; height: 20px;
-            border: 2.5px solid #e8f5e9;
-            border-top-color: #66bb6a;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Leaf decoration */
-        .leaf { display: inline-block; margin: 0 3px; }
-
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(3px);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-overlay.show { display: flex; }
-        .modal {
-            background: white;
-            border-radius: 16px;
-            padding: 28px 32px;
-            width: 440px;
-            max-width: 90vw;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-        .modal h3 {
-            font-size: 18px;
-            color: #263238;
-            margin-bottom: 20px;
-        }
-        .modal label {
-            display: block;
-            font-size: 13px;
+            background: rgba(0,0,0,0.1);
+            font-size: 10px; padding: 0 6px;
+            border-radius: 8px; margin-left: 4px;
             font-weight: 600;
-            color: #546e7a;
-            margin-bottom: 6px;
         }
-        .modal input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #e0e7e1;
-            border-radius: 10px;
-            font-size: 14px;
-            margin-bottom: 16px;
-            outline: none;
-            transition: border-color 0.2s;
+        .tab.active .tab-badge { background: rgba(255,255,255,0.3); }
+        .tab-star {
+            cursor: pointer; margin-left: 3px; font-size: 12px;
+            opacity: 0.4; transition: opacity 0.15s;
         }
-        .modal input:focus { border-color: #66bb6a; }
-        .modal .hint {
-            font-size: 12px;
-            color: #90a4ae;
-            margin-top: -12px;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 8px;
-        }
-        .modal-actions button {
-            padding: 8px 20px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .modal-btn-cancel {
-            background: #f5f7f6;
-            color: #78909c;
-            border: 1px solid #e0e7e1;
-        }
-        .modal-btn-cancel:hover { background: #e8ece9; }
-        .modal-btn-confirm {
-            background: linear-gradient(135deg, #66bb6a, #26a69a);
-            color: white;
-            border: none;
-            box-shadow: 0 2px 8px rgba(102,187,106,0.3);
-        }
-        .modal-btn-confirm:hover { transform: translateY(-1px); }
+        .tab-star:hover { opacity: 1; }
+        .tab-star.is-home { opacity: 1; }
+        .tab.active .tab-star { opacity: 0.7; }
+        .tab.active .tab-star:hover, .tab.active .tab-star.is-home { opacity: 1; }
 
         /* Tab with delete */
-        .tab-custom {
-            position: relative;
-            padding-right: 28px;
-        }
+        .tab-custom { padding-right: 28px; }
         .tab-delete {
-            position: absolute;
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.1);
-            color: white;
-            font-size: 11px;
-            line-height: 16px;
-            text-align: center;
-            cursor: pointer;
-            display: none;
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            width: 16px; height: 16px; border-radius: 50%;
+            background: rgba(0,0,0,0.1); color: white;
+            font-size: 11px; line-height: 16px; text-align: center;
+            cursor: pointer; display: none;
         }
         .tab-custom:hover .tab-delete { display: block; }
         .tab-custom.active .tab-delete { background: rgba(255,255,255,0.3); }
 
         /* Add button */
         .tab-add {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1.5px dashed #c8e6c9;
-            background: white;
-            cursor: pointer;
-            font-size: 16px;
-            color: #81c784;
-            transition: all 0.2s;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 6px 12px; border-radius: 20px;
+            border: 1.5px dashed #c8e6c9; background: white;
+            cursor: pointer; font-size: 16px; color: #81c784;
+            transition: all 0.2s; white-space: nowrap;
+            display: flex; align-items: center; justify-content: center;
         }
         .tab-add:hover { border-color: #66bb6a; color: #2e7d32; background: #f1f8f2; }
 
-        /* ========== Responsive ========== */
+        /* Papers list */
+        .papers-container { flex: 1; overflow-y: auto; padding: 20px 24px 40px; }
+        .papers-container::-webkit-scrollbar { width: 5px; }
+        .papers-container::-webkit-scrollbar-track { background: transparent; }
+        .papers-container::-webkit-scrollbar-thumb { background: #c8e6c9; border-radius: 3px; }
+        .papers-container::-webkit-scrollbar-thumb:hover { background: #a5d6a7; }
+
+        .paper-count { font-size: 13px; color: #90a4ae; margin-bottom: 16px; padding-left: 2px; }
+
+        .status-box { text-align: center; padding: 80px 20px; color: #b0bec5; }
+        .status-box.error { color: #e57373; }
+        .status-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
+        .status-text { font-size: 15px; font-weight: 500; }
+
+        /* Paper card */
+        .paper {
+            background: white; border-radius: 14px;
+            padding: 22px 26px; margin-bottom: 14px;
+            border: 1px solid #e8ece9; transition: all 0.25s ease;
+            position: relative;
+        }
+        .paper.read { opacity: 0.55; }
+        .paper.read:hover { opacity: 0.85; }
+        .paper::before {
+            content: ''; position: absolute;
+            left: 0; top: 16px; bottom: 16px; width: 3px;
+            border-radius: 0 3px 3px 0;
+            background: linear-gradient(180deg, #81c784, #80cbc4);
+            opacity: 0; transition: opacity 0.25s;
+        }
+        .paper:hover { border-color: #c8e6c9; box-shadow: 0 4px 20px rgba(102,187,106,0.1); transform: translateY(-1px); }
+        .paper:hover::before { opacity: 1; }
+        .paper-header { display: flex; align-items: flex-start; gap: 10px; }
+        .paper-title {
+            font-size: 16px; font-weight: 700; color: #263238;
+            margin-bottom: 10px; line-height: 1.55; flex: 1;
+        }
+        .paper-title a { color: inherit; text-decoration: none; transition: color 0.15s; }
+        .paper-title a:hover { color: #2e7d32; }
+        .paper-actions { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+        .paper-action-btn {
+            width: 28px; height: 28px; border-radius: 8px;
+            border: 1px solid #e8ece9; background: white;
+            cursor: pointer; font-size: 14px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.15s; color: #b0bec5;
+        }
+        .paper-action-btn:hover { border-color: #81c784; color: #2e7d32; background: #f1f8f2; }
+        .paper-action-btn.active { color: #f59e0b; border-color: #fcd34d; background: #fffbeb; }
+        .paper-action-btn.read-active { color: #66bb6a; border-color: #a5d6a7; background: #f1f8f2; }
+        .paper-meta {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            margin-bottom: 10px; align-items: center;
+        }
+        .meta-date {
+            font-size: 12px; color: #78909c; background: #f5f7f6;
+            padding: 3px 10px; border-radius: 10px;
+        }
+        .category-tag { font-size: 11px; padding: 3px 10px; border-radius: 10px; font-weight: 500; }
+        .cat-0 { background: #e8f5e9; color: #2e7d32; }
+        .cat-1 { background: #e0f7fa; color: #00838f; }
+        .cat-2 { background: #fff3e0; color: #e65100; }
+        .cat-3 { background: #fce4ec; color: #c2185b; }
+        .cat-4 { background: #ede7f6; color: #5e35b1; }
+        .paper-authors { font-size: 13px; color: #78909c; margin-bottom: 12px; line-height: 1.6; }
+        .paper-authors strong { color: #546e7a; font-weight: 600; }
+        .paper-abstract {
+            font-size: 13.5px; color: #546e7a; line-height: 1.8;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #f9fdf9, #f5fafa);
+            border-radius: 10px; border-left: 3px solid #c8e6c9;
+            position: relative; overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .paper-abstract.collapsed { max-height: 72px; }
+        .paper-abstract.collapsed::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 40px;
+            background: linear-gradient(transparent, #f9fdf9);
+        }
+        .toggle-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            margin-top: 8px; color: #66bb6a; font-size: 12px;
+            cursor: pointer; font-weight: 600; transition: color 0.15s;
+        }
+        .toggle-btn:hover { color: #2e7d32; }
+
+        /* Favorites section */
+        .favorites-bar {
+            padding: 8px 24px;
+            background: #fffbeb;
+            border-bottom: 1px solid #fde68a;
+            font-size: 13px; color: #92400e;
+            display: none; align-items: center; gap: 8px;
+            flex-shrink: 0;
+        }
+        .favorites-bar.show { display: flex; }
+        .favorites-bar span { font-weight: 600; }
+        .favorites-toggle {
+            margin-left: auto; cursor: pointer;
+            color: #d97706; font-weight: 600; font-size: 12px;
+        }
+        .favorites-toggle:hover { text-decoration: underline; }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block; width: 20px; height: 20px;
+            border: 2.5px solid #e8f5e9; border-top-color: #66bb6a;
+            border-radius: 50%; animation: spin 0.7s linear infinite;
+            vertical-align: middle; margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .leaf { display: inline-block; margin: 0 3px; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(3px);
+            z-index: 200; justify-content: center; align-items: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: white; border-radius: 16px;
+            padding: 28px 32px; width: 440px; max-width: 90vw;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .modal h3 { font-size: 18px; color: #263238; margin-bottom: 20px; }
+        .modal label { display: block; font-size: 13px; font-weight: 600; color: #546e7a; margin-bottom: 6px; }
+        .modal input {
+            width: 100%; padding: 10px 14px;
+            border: 1.5px solid #e0e7e1; border-radius: 10px;
+            font-size: 14px; margin-bottom: 16px; outline: none;
+            transition: border-color 0.2s;
+        }
+        .modal input:focus { border-color: #66bb6a; }
+        .modal .hint { font-size: 12px; color: #90a4ae; margin-top: -12px; margin-bottom: 16px; line-height: 1.5; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+        .modal-actions button {
+            padding: 8px 20px; border-radius: 10px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .modal-btn-cancel { background: #f5f7f6; color: #78909c; border: 1px solid #e0e7e1; }
+        .modal-btn-cancel:hover { background: #e8ece9; }
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #66bb6a, #26a69a);
+            color: white; border: none;
+            box-shadow: 0 2px 8px rgba(102,187,106,0.3);
+        }
+        .modal-btn-confirm:hover { transform: translateY(-1px); }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar { position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; box-shadow: 4px 0 20px rgba(0,0,0,0.08); }
             .sidebar.collapsed { margin-left: -200px; }
             .tab { font-size: 12px; padding: 5px 12px; }
             .paper { padding: 18px 20px; }
+            .search-box input { width: 120px; }
+            .search-box input:focus { width: 150px; }
         }
     </style>
 </head>
@@ -563,7 +416,6 @@
     </header>
 
     <div class="main-wrapper">
-        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">&#128197; 历史记录</div>
             <div class="sidebar-list" id="sidebar-list"></div>
@@ -572,10 +424,9 @@
             </div>
         </aside>
 
-        <!-- Content -->
         <div class="content-area">
             <div class="toolbar">
-                <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="切换侧边栏">&#9776;</button>
+                <button class="sidebar-toggle" onclick="toggleSidebar()" title="切换侧边栏">&#9776;</button>
                 <select id="max-results">
                     <option value="10">每方向 10 篇</option>
                     <option value="20" selected>每方向 20 篇</option>
@@ -583,9 +434,16 @@
                 </select>
                 <button class="toolbar-btn btn-primary" id="fetch-btn" onclick="fetchAll()">&#128260; 刷新今日数据</button>
                 <span class="fetch-progress" id="fetch-progress"></span>
-                <div class="auto-status" id="auto-status"><span class="dot"></span>自动刷新：每日 8:30</div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="搜索论文..." oninput="filterPapers()">
+                </div>
+                <div class="auto-status"><span class="dot"></span>每日 8:30</div>
             </div>
             <div class="tabs-wrapper" id="tabs"></div>
+            <div class="favorites-bar" id="favorites-bar">
+                <span>&#11088;</span> 收藏的论文
+                <span class="favorites-toggle" id="fav-toggle" onclick="toggleFavorites()">查看收藏</span>
+            </div>
             <div class="papers-container" id="papers-container">
                 <div class="status-box">
                     <div class="status-icon">&#127793;</div>
@@ -614,133 +472,116 @@
     <script>
         // ==================== Config ====================
         const BASE_TOPICS = [
-            {
-                name: '多模态大语言模型蒸馏',
-                queries: [
-                    'all:multimodal AND all:knowledge+distillation AND all:large+language+model',
-                    'all:multimodal AND all:model+distillation'
-                ]
-            },
-            {
-                name: '扩散模型',
-                queries: [
-                    'all:diffusion+model AND (cat:cs.CV OR cat:cs.LG OR cat:cs.AI)'
-                ]
-            },
-            {
-                name: '测试时领域自适应',
-                queries: [
-                    'all:test-time+adaptation',
-                    'all:test-time+domain+adaptation'
-                ]
-            },
-            {
-                name: '作文评分',
-                queries: [
-                    'all:automated+essay+scoring',
-                    'all:essay+grading AND all:neural'
-                ]
-            },
-            {
-                name: '知识追踪',
-                queries: [
-                    'all:knowledge+tracing',
-                    'all:knowledge+tracing AND (cat:cs.AI OR cat:cs.CY OR cat:cs.LG)'
-                ]
-            },
-            {
-                name: '提示学习',
-                queries: [
-                    'all:prompt+learning AND (cat:cs.CL OR cat:cs.CV OR cat:cs.LG)',
-                    'all:prompt+tuning AND all:vision'
-                ]
-            },
-            {
-                name: '工业异常检测',
-                queries: [
-                    'all:industrial+anomaly+detection',
-                    'all:anomaly+detection AND all:manufacturing'
-                ]
-            },
-            {
-                name: '对抗攻击',
-                queries: [
-                    'all:adversarial+attack AND (cat:cs.CV OR cat:cs.LG OR cat:cs.CR)',
-                    'all:adversarial+robustness AND all:attack'
-                ]
-            }
+            { name: '多模态大语言模型蒸馏', queries: ['all:multimodal AND all:knowledge+distillation AND all:large+language+model', 'all:multimodal AND all:model+distillation'] },
+            { name: '扩散模型', queries: ['all:diffusion+model AND (cat:cs.CV OR cat:cs.LG OR cat:cs.AI)'] },
+            { name: '测试时领域自适应', queries: ['all:test-time+adaptation', 'all:test-time+domain+adaptation'] },
+            { name: '作文评分', queries: ['all:automated+essay+scoring', 'all:essay+grading AND all:neural'] },
+            { name: '知识追踪', queries: ['all:knowledge+tracing', 'all:knowledge+tracing AND (cat:cs.AI OR cat:cs.CY OR cat:cs.LG)'] },
+            { name: '提示学习', queries: ['all:prompt+learning AND (cat:cs.CL OR cat:cs.CV OR cat:cs.LG)', 'all:prompt+tuning AND all:vision'] },
+            { name: '工业异常检测', queries: ['all:industrial+anomaly+detection', 'all:anomaly+detection AND all:manufacturing'] },
+            { name: '对抗攻击', queries: ['all:adversarial+attack AND (cat:cs.CV OR cat:cs.LG OR cat:cs.CR)', 'all:adversarial+robustness AND all:attack'] }
         ];
 
         const STORAGE_PREFIX = 'arxiv_';
         const CUSTOM_TOPICS_KEY = 'arxiv_custom_topics';
+        const HOME_TOPIC_KEY = 'arxiv_home_topic';
+        const FAVORITES_KEY = 'arxiv_favorites';
+        const READ_KEY = 'arxiv_read';
         const AUTO_REFRESH_HOUR = 8;
         const AUTO_REFRESH_MIN = 30;
 
-        // Build full TOPICS list: base + custom
-        function getCustomTopics() {
-            const data = localStorage.getItem(CUSTOM_TOPICS_KEY);
-            return data ? JSON.parse(data) : [];
-        }
-
-        function saveCustomTopics(topics) {
-            localStorage.setItem(CUSTOM_TOPICS_KEY, JSON.stringify(topics));
-        }
-
-        function buildTopics() {
-            return [...BASE_TOPICS, ...getCustomTopics()];
-        }
-
+        // ==================== Topics ====================
+        function getCustomTopics() { return JSON.parse(localStorage.getItem(CUSTOM_TOPICS_KEY) || '[]'); }
+        function saveCustomTopics(t) { localStorage.setItem(CUSTOM_TOPICS_KEY, JSON.stringify(t)); }
+        function buildTopics() { return [...BASE_TOPICS, ...getCustomTopics()]; }
         let TOPICS = buildTopics();
 
         // ==================== State ====================
         let activeTab = 0;
         let selectedDate = getToday();
         let sidebarOpen = true;
+        let showingFavorites = false;
+        let searchQuery = '';
+
+        // ==================== Favorites & Read ====================
+        function getFavorites() { return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]'); }
+        function saveFavorites(f) { localStorage.setItem(FAVORITES_KEY, JSON.stringify(f)); }
+        function isFavorite(paperId) { return getFavorites().includes(paperId); }
+        function toggleFavorite(paperId) {
+            let favs = getFavorites();
+            if (favs.includes(paperId)) { favs = favs.filter(f => f !== paperId); }
+            else { favs.push(paperId); }
+            saveFavorites(favs);
+            renderPapers();
+            updateFavBar();
+        }
+
+        function getReadPapers() { return JSON.parse(localStorage.getItem(READ_KEY) || '[]'); }
+        function saveReadPapers(r) { localStorage.setItem(READ_KEY, JSON.stringify(r)); }
+        function isRead(paperId) { return getReadPapers().includes(paperId); }
+        function toggleRead(paperId) {
+            let reads = getReadPapers();
+            if (reads.includes(paperId)) { reads = reads.filter(r => r !== paperId); }
+            else { reads.push(paperId); }
+            saveReadPapers(reads);
+            renderPapers();
+        }
+
+        function updateFavBar() {
+            const bar = document.getElementById('favorites-bar');
+            const favs = getFavorites();
+            bar.classList.toggle('show', favs.length > 0);
+            document.getElementById('fav-toggle').textContent = showingFavorites ? '返回列表' : `查看收藏 (${favs.length})`;
+        }
+
+        function toggleFavorites() {
+            showingFavorites = !showingFavorites;
+            updateFavBar();
+            renderPapers();
+        }
+
+        // ==================== Home Topic ====================
+        function getHomeTopic() { return parseInt(localStorage.getItem(HOME_TOPIC_KEY) || '-1'); }
+        function setHomeTopic(index) {
+            const current = getHomeTopic();
+            if (current === index) { localStorage.removeItem(HOME_TOPIC_KEY); }
+            else { localStorage.setItem(HOME_TOPIC_KEY, index); }
+            renderTabs();
+        }
 
         // ==================== Utility ====================
         function getToday() {
             const d = new Date();
             return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
         }
-
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-        function storageKey(date, topicIndex) {
-            return `${STORAGE_PREFIX}${date}_${topicIndex}`;
-        }
+        function storageKey(date, topicIndex) { return `${STORAGE_PREFIX}${date}_${topicIndex}`; }
 
         function getStoredDates() {
             const dates = new Set();
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith(STORAGE_PREFIX)) {
+                if (key.startsWith(STORAGE_PREFIX) && key !== CUSTOM_TOPICS_KEY && key !== HOME_TOPIC_KEY && key !== FAVORITES_KEY && key !== READ_KEY) {
                     const parts = key.replace(STORAGE_PREFIX, '').split('_');
-                    if (parts.length >= 2) dates.add(parts[0]);
+                    if (parts.length >= 2 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0])) dates.add(parts[0]);
                 }
             }
             return Array.from(dates).sort().reverse();
         }
-
         function getStoredPapers(date, topicIndex) {
             const data = localStorage.getItem(storageKey(date, topicIndex));
             return data ? JSON.parse(data) : null;
         }
-
         function storePapers(date, topicIndex, papers) {
             localStorage.setItem(storageKey(date, topicIndex), JSON.stringify(papers));
         }
-
-        function hasTodayData() {
-            const today = getToday();
-            return getStoredPapers(today, 0) !== null;
-        }
+        function hasTodayData() { return getStoredPapers(getToday(), 0) !== null; }
 
         // ==================== Sidebar ====================
         function toggleSidebar() {
             sidebarOpen = !sidebarOpen;
             document.getElementById('sidebar').classList.toggle('collapsed', !sidebarOpen);
         }
-
         function renderSidebar() {
             const dates = getStoredDates();
             const today = getToday();
@@ -753,51 +594,48 @@
                 const isToday = date === today;
                 const isActive = date === selectedDate;
                 return `<div class="date-item${isActive ? ' active' : ''}${isToday ? ' today' : ''}" onclick="selectDate('${date}')">
-                    <span class="date-dot"></span>
-                    ${date}
-                </div>`;
+                    <span class="date-dot"></span>${date}</div>`;
             }).join('');
         }
-
-        function selectDate(date) {
-            selectedDate = date;
-            renderSidebar();
-            renderPapers();
-        }
-
+        function selectDate(date) { selectedDate = date; renderSidebar(); renderPapers(); }
         function clearHistory() {
-            if (!confirm('确定要清除所有历史数据吗？此操作不可恢复。')) return;
+            if (!confirm('确定要清除所有历史数据吗？')) return;
             const keysToRemove = [];
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith(STORAGE_PREFIX)) keysToRemove.push(key);
+                if (key.startsWith(STORAGE_PREFIX) && key !== CUSTOM_TOPICS_KEY && key !== HOME_TOPIC_KEY && key !== FAVORITES_KEY && key !== READ_KEY) keysToRemove.push(key);
             }
             keysToRemove.forEach(k => localStorage.removeItem(k));
             selectedDate = getToday();
-            renderSidebar();
-            renderPapers();
+            renderSidebar(); renderPapers();
         }
 
         // ==================== Tabs ====================
         function renderTabs() {
             const tabsEl = document.getElementById('tabs');
             const baseCount = BASE_TOPICS.length;
+            const homeTopic = getHomeTopic();
             let html = TOPICS.map((t, i) => {
                 const isCustom = i >= baseCount;
                 const activeClass = i === activeTab ? ' active' : '';
-                if (isCustom) {
-                    return `<div class="tab tab-custom${activeClass}" onclick="switchTab(${i})">${t.name}<span class="tab-delete" onclick="event.stopPropagation();deleteCustomTopic(${i - baseCount})" title="删除此方向">&times;</span></div>`;
-                }
-                return `<div class="tab${activeClass}" onclick="switchTab(${i})">${t.name}</div>`;
+                const customClass = isCustom ? ' tab-custom' : '';
+                const papers = getStoredPapers(selectedDate, i);
+                const count = papers ? papers.length : 0;
+                const badge = count > 0 ? `<span class="tab-badge">${count}</span>` : '';
+                const starClass = homeTopic === i ? 'is-home' : '';
+                const star = `<span class="tab-star ${starClass}" onclick="event.stopPropagation();setHomeTopic(${i})" title="${homeTopic === i ? '取消主页' : '设为主页'}">&#11088;</span>`;
+                const del = isCustom ? `<span class="tab-delete" onclick="event.stopPropagation();deleteCustomTopic(${i - baseCount})" title="删除">&times;</span>` : '';
+                return `<div class="tab${activeClass}${customClass}" onclick="switchTab(${i})">${t.name}${badge}${star}${del}</div>`;
             }).join('');
             html += `<div class="tab-add" onclick="openModal()" title="添加研究方向">+</div>`;
             tabsEl.innerHTML = html;
         }
-
         function switchTab(index) {
             activeTab = index;
-            renderTabs();
-            renderPapers();
+            showingFavorites = false;
+            searchQuery = '';
+            document.getElementById('search-input').value = '';
+            renderTabs(); updateFavBar(); renderPapers();
         }
 
         // ==================== Custom Topics ====================
@@ -807,30 +645,19 @@
             document.getElementById('modal-overlay').classList.add('show');
             document.getElementById('topic-name').focus();
         }
-
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.remove('show');
-        }
-
+        function closeModal() { document.getElementById('modal-overlay').classList.remove('show'); }
         function confirmAddTopic() {
             const name = document.getElementById('topic-name').value.trim();
             const keywords = document.getElementById('topic-keywords').value.trim();
-            if (!name || !keywords) {
-                alert('请填写方向名称和英文搜索关键词');
-                return;
-            }
+            if (!name || !keywords) { alert('请填写方向名称和英文搜索关键词'); return; }
             const query = 'all:' + keywords.split(/\s+/).join('+') + ' AND (cat:cs.CV OR cat:cs.LG OR cat:cs.AI OR cat:cs.CL)';
             const customTopics = getCustomTopics();
             customTopics.push({ name, queries: [query], custom: true });
             saveCustomTopics(customTopics);
             TOPICS = buildTopics();
             activeTab = TOPICS.length - 1;
-            closeModal();
-            renderTabs();
-            // Fetch data for the new topic
-            fetchSingleTopic(activeTab);
+            closeModal(); renderTabs(); fetchSingleTopic(activeTab);
         }
-
         function deleteCustomTopic(customIndex) {
             const customTopics = getCustomTopics();
             if (!confirm(`确定删除「${customTopics[customIndex].name}」方向吗？`)) return;
@@ -838,29 +665,16 @@
             saveCustomTopics(customTopics);
             TOPICS = buildTopics();
             if (activeTab >= TOPICS.length) activeTab = TOPICS.length - 1;
-            renderTabs();
+            renderTabs(); renderPapers();
+        }
+
+        // ==================== Search ====================
+        function filterPapers() {
+            searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
             renderPapers();
         }
 
-        async function fetchSingleTopic(topicIndex) {
-            const btn = document.getElementById('fetch-btn');
-            btn.disabled = true;
-            const today = getToday();
-            selectedDate = today;
-            const maxResults = parseInt(document.getElementById('max-results').value);
-            showStatus('loading', `正在获取「${TOPICS[topicIndex].name}」的论文...`);
-            try {
-                const papers = await fetchTopic(topicIndex, maxResults);
-                storePapers(today, topicIndex, papers);
-                renderPapers();
-                renderSidebar();
-            } catch (e) {
-                showStatus('error', `获取失败：${e.message}`);
-            }
-            btn.disabled = false;
-        }
-
-        // ==================== Fetch (via local proxy) ====================
+        // ==================== Fetch ====================
         async function fetchArxiv(query, maxResults) {
             const params = `search_query=${encodeURIComponent(query)}&start=0&max_results=${maxResults}&sortBy=submittedDate&sortOrder=descending`;
             const resp = await fetch(`/api/arxiv?${params}`);
@@ -883,55 +697,51 @@
             });
             return papers;
         }
-
         async function fetchTopic(topicIndex, maxResults) {
             const topic = TOPICS[topicIndex];
-            const seen = new Set();
-            let allPapers = [];
+            const seen = new Set(); let allPapers = [];
             for (const query of topic.queries) {
                 try {
                     const papers = await fetchArxiv(query, maxResults);
-                    for (const p of papers) {
-                        if (!seen.has(p.id)) {
-                            seen.add(p.id);
-                            allPapers.push(p);
-                        }
-                    }
-                } catch (e) {
-                    console.warn(`Query failed: ${query}`, e);
-                }
+                    for (const p of papers) { if (!seen.has(p.id)) { seen.add(p.id); allPapers.push(p); } }
+                } catch (e) { console.warn(`Query failed: ${query}`, e); }
                 await sleep(1000);
             }
             allPapers.sort((a, b) => new Date(b.published) - new Date(a.published));
             return allPapers;
         }
-
+        async function fetchSingleTopic(topicIndex) {
+            const btn = document.getElementById('fetch-btn');
+            btn.disabled = true;
+            const today = getToday(); selectedDate = today;
+            const maxResults = parseInt(document.getElementById('max-results').value);
+            showStatus('loading', `正在获取「${TOPICS[topicIndex].name}」的论文...`);
+            try {
+                const papers = await fetchTopic(topicIndex, maxResults);
+                storePapers(today, topicIndex, papers);
+                renderTabs(); renderPapers(); renderSidebar();
+            } catch (e) { showStatus('error', `获取失败：${e.message}`); }
+            btn.disabled = false;
+        }
         async function fetchAll() {
             const btn = document.getElementById('fetch-btn');
             const progress = document.getElementById('fetch-progress');
-            btn.disabled = true;
-            btn.innerHTML = '&#9203; 获取中...';
-
-            const today = getToday();
-            selectedDate = today;
+            btn.disabled = true; btn.innerHTML = '&#9203; 获取中...';
+            const today = getToday(); selectedDate = today;
             const maxResults = parseInt(document.getElementById('max-results').value);
-
             showStatus('loading', '正在从 Arxiv 获取论文数据，请稍候...');
-
             try {
                 for (let i = 0; i < TOPICS.length; i++) {
                     progress.textContent = `(${i + 1}/${TOPICS.length}) ${TOPICS[i].name}...`;
                     const papers = await fetchTopic(i, maxResults);
                     storePapers(today, i, papers);
+                    renderTabs();
                     if (i === activeTab) renderPapers();
                     renderSidebar();
                     if (i < TOPICS.length - 1) await sleep(3000);
                 }
                 renderPapers();
-            } catch (e) {
-                showStatus('error', `获取失败：${e.message}，请检查网络后重试`);
-            }
-
+            } catch (e) { showStatus('error', `获取失败：${e.message}，请检查网络后重试`); }
             progress.textContent = '';
             btn.disabled = false;
             btn.innerHTML = '&#128260; 刷新今日数据';
@@ -944,37 +754,76 @@
             const spinnerHtml = type === 'loading' ? '<span class="spinner"></span>' : '';
             container.innerHTML = `<div class="status-box${type === 'error' ? ' error' : ''}">
                 <div class="status-icon">${icons[type] || '&#127793;'}</div>
-                <div class="status-text">${spinnerHtml}${text}</div>
-            </div>`;
+                <div class="status-text">${spinnerHtml}${text}</div></div>`;
         }
 
         function renderPapers() {
-            const papers = getStoredPapers(selectedDate, activeTab);
             const container = document.getElementById('papers-container');
+            let papers;
 
-            if (papers === null) {
-                showStatus('empty', `${selectedDate} 暂无「${TOPICS[activeTab].name}」的数据`);
-                return;
-            }
-            if (papers.length === 0) {
-                showStatus('empty', `${selectedDate}「${TOPICS[activeTab].name}」方向未检索到论文`);
-                return;
+            if (showingFavorites) {
+                // Show all favorited papers across all topics and dates
+                const favIds = getFavorites();
+                papers = [];
+                const dates = getStoredDates();
+                for (const date of dates) {
+                    for (let i = 0; i < TOPICS.length; i++) {
+                        const stored = getStoredPapers(date, i);
+                        if (stored) {
+                            for (const p of stored) {
+                                if (favIds.includes(p.id) && !papers.find(x => x.id === p.id)) {
+                                    papers.push(p);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (papers.length === 0) {
+                    showStatus('empty', '暂无收藏的论文，点击论文卡片右上角的 &#11088; 收藏');
+                    return;
+                }
+            } else {
+                papers = getStoredPapers(selectedDate, activeTab);
+                if (papers === null) {
+                    showStatus('empty', `${selectedDate} 暂无「${TOPICS[activeTab].name}」的数据`);
+                    return;
+                }
+                if (papers.length === 0) {
+                    showStatus('empty', `${selectedDate}「${TOPICS[activeTab].name}」方向未检索到论文`);
+                    return;
+                }
             }
 
-            let html = `<div class="paper-count">&#127808; ${selectedDate} &middot; ${TOPICS[activeTab].name} &middot; 共 ${papers.length} 篇</div>`;
+            // Search filter
+            if (searchQuery) {
+                papers = papers.filter(p =>
+                    p.title.toLowerCase().includes(searchQuery) ||
+                    p.authors.join(' ').toLowerCase().includes(searchQuery) ||
+                    p.summary.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            const label = showingFavorites ? '&#11088; 收藏论文' : `&#127808; ${selectedDate} &middot; ${TOPICS[activeTab].name}`;
+            let html = `<div class="paper-count">${label} &middot; 共 ${papers.length} 篇</div>`;
+
             papers.forEach((p, idx) => {
                 const date = new Date(p.published);
                 const dateStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
                 const cats = p.categories.slice(0, 4).map((c, ci) =>
-                    `<span class="category-tag cat-${ci % 5}">${c}</span>`
-                ).join('');
+                    `<span class="category-tag cat-${ci % 5}">${c}</span>`).join('');
+                const favActive = isFavorite(p.id) ? ' active' : '';
+                const readActive = isRead(p.id) ? ' read-active' : '';
+                const readClass = isRead(p.id) ? ' read' : '';
                 html += `
-                <div class="paper">
-                    <div class="paper-title"><a href="${p.id}" target="_blank" rel="noopener">${p.title}</a></div>
-                    <div class="paper-meta">
-                        <span class="meta-date">${dateStr}</span>
-                        ${cats}
+                <div class="paper${readClass}">
+                    <div class="paper-header">
+                        <div class="paper-title"><a href="${p.id}" target="_blank" rel="noopener">${p.title}</a></div>
+                        <div class="paper-actions">
+                            <button class="paper-action-btn${favActive}" onclick="toggleFavorite('${p.id}')" title="${isFavorite(p.id) ? '取消收藏' : '收藏'}">&#11088;</button>
+                            <button class="paper-action-btn${readActive}" onclick="toggleRead('${p.id}')" title="${isRead(p.id) ? '标为未读' : '标为已读'}">&#10003;</button>
+                        </div>
                     </div>
+                    <div class="paper-meta"><span class="meta-date">${dateStr}</span>${cats}</div>
                     <div class="paper-authors"><strong>Authors: </strong>${p.authors.join(', ')}</div>
                     <div class="paper-abstract collapsed" id="abs-${idx}">${p.summary}</div>
                     <span class="toggle-btn" onclick="toggleAbstract(${idx})">&#9660; 展开摘要</span>
@@ -997,16 +846,12 @@
 
         // ==================== Auto Refresh ====================
         function scheduleAutoRefresh() {
-            function check() {
+            setInterval(() => {
                 const now = new Date();
-                if (now.getHours() === AUTO_REFRESH_HOUR && now.getMinutes() === AUTO_REFRESH_MIN) {
-                    if (!hasTodayData()) {
-                        console.log('[AutoRefresh] Triggering daily fetch at 8:30');
-                        fetchAll();
-                    }
+                if (now.getHours() === AUTO_REFRESH_HOUR && now.getMinutes() === AUTO_REFRESH_MIN && !hasTodayData()) {
+                    fetchAll();
                 }
-            }
-            setInterval(check, 30000);
+            }, 30000);
         }
 
         // ==================== Init ====================
@@ -1015,14 +860,14 @@
             document.getElementById('header-date').textContent =
                 `${now.getFullYear()} 年 ${now.getMonth()+1} 月 ${now.getDate()} 日`;
 
-            renderTabs();
-            renderSidebar();
+            // Restore home topic
+            const homeTopic = getHomeTopic();
+            if (homeTopic >= 0 && homeTopic < TOPICS.length) activeTab = homeTopic;
 
-            if (hasTodayData()) {
-                renderPapers();
-            } else {
-                fetchAll();
-            }
+            renderTabs(); renderSidebar(); updateFavBar();
+
+            if (hasTodayData()) { renderPapers(); }
+            else { fetchAll(); }
 
             scheduleAutoRefresh();
         }
